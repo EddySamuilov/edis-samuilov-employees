@@ -12,7 +12,7 @@ public class AppInitializer {
 
 
         try {
-            employeeServiceImpl = new EmployeeServiceImpl(GlobalConstants.INPUT_PATH);
+            employeeServiceImpl = new EmployeeServiceImpl();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
@@ -21,7 +21,7 @@ public class AppInitializer {
 
         try {
             assert employeeServiceImpl != null;
-            employeeServiceImpl.readEmployees();
+            employeeServiceImpl.readEmployees(GlobalConstants.INPUT_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
