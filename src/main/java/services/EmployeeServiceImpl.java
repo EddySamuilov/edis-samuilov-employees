@@ -18,6 +18,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         this.employees = new ArrayList<>();
     }
 
+    /**
+     * This method read the data from the "input.txt" file and create Employee class with the provided information.
+     * Then add the new made Employee in the data structure of type List
+     *
+     * @param filePath - path to the file
+     * @throws IOException if the "reader" is already opened or etc.
+     * @throws java.io.FileNotFoundException if "FilePath" is incorrect, file is missing or etc.
+     */
     @Override
     public void readEmployees(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -42,6 +50,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
     }
 
+
+    /**
+     * The main logic is here.
+     * The method iterate through all of the employees and finds the employees who work together on given project for the longest time.
+     *
+     * @return The longest Period where two employees have worked onto common project.
+     */
     @Override
     public Period findLongestWorkOnCommonProject() {
         int foundYears = Integer.MIN_VALUE;
@@ -89,11 +104,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         return Period.of(foundYears, foundMonths, foundDays);
     }
 
+    /**
+     * @param firstEmployee - the employee we evaluate
+     * @param secondEmployee - all of the other employees
+     * @return "True" if both of the employees was worked on the same project at given time. "False" otherwise.
+     */
     private boolean findIfEmployeesHaveWorkedOnCommonProject(Employee firstEmployee, Employee secondEmployee) {
         return firstEmployee.getProjectId().equals(secondEmployee.getProjectId())
                 && (firstEmployee.getStartDate().compareTo(secondEmployee.getEndDate()) < 0);
     }
 
+    /**
+     * This method finds the smaller "EndDate". Because after that date one of the employees has stopped working on the project
+     *
+     * @param firstEmployee - the employee we evaluate
+     * @param secondEmployee - all of the other employees
+     * @return The lower "EndDate"
+     */
     private LocalDate findCommonEndDate(Employee firstEmployee, Employee secondEmployee) {
         if (firstEmployee.getEndDate().isAfter(secondEmployee.getEndDate())) {
             return secondEmployee.getEndDate();
@@ -102,6 +129,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return firstEmployee.getEndDate();
     }
 
+    /**
+     * This method finds bigger "StartDate". Because before that date one of the employees is not start working on the project.
+     *
+     * @param firstEmployee - the employee we evaluate
+     * @param secondEmployee - all of the other employees
+     * @return The bigger "StartDate"
+     */
     private LocalDate findCommonStartDate(Employee firstEmployee, Employee secondEmployee) {
         if (firstEmployee.getStartDate().isAfter(secondEmployee.getStartDate())) {
             return firstEmployee.getStartDate();
