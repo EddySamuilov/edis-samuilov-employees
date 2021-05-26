@@ -20,9 +20,10 @@ public class Employee {
     }
 
     private void setId(Long id) {
-        if (id < 0){
+        if (id < 0) {
             throw new IllegalArgumentException("Employee Id can't be less than 0!");
         }
+
         this.id = id;
     }
 
@@ -31,9 +32,10 @@ public class Employee {
     }
 
     private void setProjectId(Long projectId) {
-        if (projectId < 0){
+        if (projectId < 0) {
             throw new IllegalArgumentException("Project Id can't be negative number!");
         }
+
         this.projectId = projectId;
     }
 
@@ -56,10 +58,10 @@ public class Employee {
     @Override
     public String toString() {
         return String.format("Employee ID: %s ProjectID: %s Start date: %s End date: %s"
-                ,this.getId()
-                ,this.getProjectId()
-                ,this.getStartDate()
-                ,this.getEndDate());
+                , this.getId()
+                , this.getProjectId()
+                , this.getStartDate()
+                , this.getEndDate());
     }
 
 }

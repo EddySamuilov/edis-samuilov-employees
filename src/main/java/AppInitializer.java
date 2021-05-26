@@ -1,36 +1,26 @@
 import contants.GlobalConstants;
 import services.EmployeeServiceImpl;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
 
 public class AppInitializer {
     public static void main(String[] args) {
-        EmployeeServiceImpl employeeServiceImpl = null;
-
-
-        try {
-            employeeServiceImpl = new EmployeeServiceImpl();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
-        }
-
+        EmployeeServiceImpl employeeServiceImpl = new EmployeeServiceImpl();
 
         try {
-            assert employeeServiceImpl != null;
             employeeServiceImpl.readEmployees(GlobalConstants.INPUT_PATH);
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
+            return;
         }
 
-        Period longestWorkTogether = employeeServiceImpl.findLongestWorkTogether();
-
+        Period longestWorkTogether = employeeServiceImpl.findLongestWorkOnCommonProject();
         System.out.println(longestWorkTogether);
 
-        Period diff = Period.between(LocalDate.of(2009, 11, 21), LocalDate.of(2016,9,7));
+        Period diff = Period.between(LocalDate.of(2009, 11, 21),
+                LocalDate.of(2016, 9, 7));
         System.out.println(diff);
     }
 }

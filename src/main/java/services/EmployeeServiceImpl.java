@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Period findLongestWorkTogether() {
+    public Period findLongestWorkOnCommonProject() {
         int foundYears = Integer.MIN_VALUE;
         int foundMonths = Integer.MIN_VALUE;
         int foundDays = Integer.MIN_VALUE;

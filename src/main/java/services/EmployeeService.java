@@ -7,5 +7,5 @@ public interface EmployeeService {
 
     void readEmployees(String filePath) throws IOException;
 
-    Period findLongestWorkTogether();
+    Period findLongestWorkOnCommonProject();
 }
