@@ -1,6 +1,7 @@
 package services;
 
 import entities.Employee;
+import utils.DateFormatter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -26,13 +27,15 @@ public class EmployeeServiceImpl implements EmployeeService {
             String[] data = input.split(", ");
             Long employeeId = Long.valueOf(data[0]);
             Long projectId = Long.valueOf(data[1]);
-            LocalDate startDate = LocalDate.parse(data[2]);
+
+            LocalDate startDate = DateFormatter.getCorrectDatePattern(data[2]);
+//            LocalDate startDate = LocalDate.parse(data[2]);
 
             LocalDate endDate;
             if (data[3].equals("NULL")) {
                 endDate = LocalDate.now();
             } else {
-                endDate = LocalDate.parse(data[3]);
+                endDate = DateFormatter.getCorrectDatePattern(data[3]);
             }
 
             this.employees.add(new Employee(employeeId, projectId, startDate, endDate));
@@ -47,17 +50,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         for (int x = 0; x < employees.size(); x++) {
             for (int i = (x + 1); i < employees.size(); i++) {
-                Employee employee1 = employees.get(x);
-                Employee employee2 = employees.get(i);
+                Employee firstEmployee = employees.get(x);
+                Employee secondEmployee = employees.get(i);
 
-                if (employee1.getId().equals(employee2.getId())) {
+                if (firstEmployee.getId().equals(secondEmployee.getId())) {
                     continue;
                 }
 
-                boolean isEmployeesWorkedOnCommonProject = findIfEmployeesHaveWorkedOnCommonProject(employee1, employee2);
+                boolean isEmployeesWorkedOnCommonProject = findIfEmployeesHaveWorkedOnCommonProject(firstEmployee, secondEmployee);
                 if (isEmployeesWorkedOnCommonProject) {
-                    LocalDate startDate = findCommonStartDate(employee1, employee2);
-                    LocalDate endDate = findCommonEndDate(employee1, employee2);
+                    LocalDate startDate = findCommonStartDate(firstEmployee, secondEmployee);
+                    LocalDate endDate = findCommonEndDate(firstEmployee, secondEmployee);
 
                     Period period = Period.between(startDate, endDate);
                     int years = period.getYears();

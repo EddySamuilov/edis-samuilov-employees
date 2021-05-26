@@ -10,10 +10,8 @@ public class EmployeeServiceImp {
 
     @Test(expected = FileNotFoundException.class)
     public void testShouldThrownExceptionIfFilePathIsIncorrect() throws IOException {
-
             EmployeeServiceImpl employeeService = new EmployeeServiceImpl();
 
             employeeService.readEmployees("Wrong path!");
     }
-
 }

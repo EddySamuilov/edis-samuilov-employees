@@ -49,4 +49,14 @@ public class EmployeeViewModel {
     public void setDaysWorked(LocalDate daysWorked) {
         this.daysWorked = daysWorked;
     }
+
+    @Override
+    public String toString() {
+        return String.format("|%-10s10|%-10s10|%-10s10|%-10s10|%n"
+                , this.firstEmployeeId
+                , this.secondEmployeeId
+                , this.projectId
+                , this.daysWorked
+        );
+    }
 }
